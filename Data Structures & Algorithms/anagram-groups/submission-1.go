@@ -1,0 +1,37 @@
+func groupAnagrams(strs []string) [][]string {
+
+	createFrequencyKey := func(s string) string {
+		m := map[rune]int{}
+		for _, r := range s {
+			m[r] += 1
+		}
+
+		runes := make([]rune, 0, len(m))
+		for r := range m {
+			runes = append(runes, r)
+		}
+
+		sort.Slice(runes, func(i, j int) bool {
+			return runes[i] < runes[j]
+		})
+
+		res := ""
+		for _, r := range runes {
+			res += string(r) + strconv.Itoa(m[r])
+		}
+		return res
+	}
+                        
+    m := map[string][]string{}
+    for _, s := range strs {
+        k := createFrequencyKey(s)
+        m[k] = append(m[k], s)
+    }
+    
+    res := make([][]string, 0, len(m))
+    for _, v := range m {
+        res = append(res, v)
+    }
+    return res
+}
+
